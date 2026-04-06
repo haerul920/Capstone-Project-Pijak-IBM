@@ -1,8 +1,17 @@
 import { useState, useMemo } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { TrendingUp, AlertCircle, CheckCircle } from "lucide-react";
 
-export function Predictions() {
+export default function Predictions() {
   const [forecastPeriod, setForecastPeriod] = useState<7 | 30>(7);
 
   const predictionData = useMemo(() => {
@@ -13,7 +22,10 @@ export function Predictions() {
       return {
         day: `Day ${i + 1}`,
         predicted: baseValue + trend + variance,
-        actual: i < forecastPeriod / 2 ? baseValue + trend + (Math.random() * 1800) : null,
+        actual:
+          i < forecastPeriod / 2
+            ? baseValue + trend + Math.random() * 1800
+            : null,
         upperBound: baseValue + trend + variance + 2000,
         lowerBound: baseValue + trend + variance - 2000,
       };
@@ -34,7 +46,9 @@ export function Predictions() {
     <div className="space-y-6">
       <div>
         <h1 className="text-white mb-2">Predictions</h1>
-        <p className="text-gray-400">AI-powered sales forecasting and predictions</p>
+        <p className="text-gray-400">
+          AI-powered sales forecasting and predictions
+        </p>
       </div>
 
       {/* Forecast Summary Cards */}
@@ -46,7 +60,9 @@ export function Predictions() {
             </div>
             <div>
               <p className="text-sm text-gray-400">Next 7 Days</p>
-              <h3 className="text-2xl text-white">${nextWeekPrediction.toLocaleString()}</h3>
+              <h3 className="text-2xl text-white">
+                ${nextWeekPrediction.toLocaleString()}
+              </h3>
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm">
@@ -62,7 +78,9 @@ export function Predictions() {
             </div>
             <div>
               <p className="text-sm text-gray-400">Next 30 Days</p>
-              <h3 className="text-2xl text-white">${nextMonthPrediction.toLocaleString()}</h3>
+              <h3 className="text-2xl text-white">
+                ${nextMonthPrediction.toLocaleString()}
+              </h3>
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm">
@@ -107,10 +125,10 @@ export function Predictions() {
             <YAxis stroke="#666" />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1A1A1A',
-                border: '1px solid #2A2A2A',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: "#1A1A1A",
+                border: "1px solid #2A2A2A",
+                borderRadius: "8px",
+                color: "#fff",
               }}
             />
             <Legend />
@@ -119,7 +137,7 @@ export function Predictions() {
               dataKey="actual"
               stroke="#FF3B3B"
               strokeWidth={2}
-              dot={{ fill: '#FF3B3B', r: 4 }}
+              dot={{ fill: "#FF3B3B", r: 4 }}
               name="Actual Sales"
             />
             <Line
@@ -128,7 +146,7 @@ export function Predictions() {
               stroke="#666"
               strokeWidth={2}
               strokeDasharray="5 5"
-              dot={{ fill: '#666', r: 4 }}
+              dot={{ fill: "#666", r: 4 }}
               name="Predicted Sales"
             />
             <Line
@@ -167,18 +185,26 @@ export function Predictions() {
             </div>
 
             <div className="flex items-center justify-between p-4 bg-[#0B0B0B] rounded-lg">
-              <span className="text-sm text-gray-400">Mean Absolute Error (MAE)</span>
+              <span className="text-sm text-gray-400">
+                Mean Absolute Error (MAE)
+              </span>
               <span className="text-white">${modelMetrics.mae.toFixed(2)}</span>
             </div>
 
             <div className="flex items-center justify-between p-4 bg-[#0B0B0B] rounded-lg">
-              <span className="text-sm text-gray-400">Mean Absolute % Error (MAPE)</span>
+              <span className="text-sm text-gray-400">
+                Mean Absolute % Error (MAPE)
+              </span>
               <span className="text-white">{modelMetrics.mape}%</span>
             </div>
 
             <div className="flex items-center justify-between p-4 bg-[#0B0B0B] rounded-lg">
-              <span className="text-sm text-gray-400">Root Mean Squared Error (RMSE)</span>
-              <span className="text-white">${modelMetrics.rmse.toFixed(2)}</span>
+              <span className="text-sm text-gray-400">
+                Root Mean Squared Error (RMSE)
+              </span>
+              <span className="text-white">
+                ${modelMetrics.rmse.toFixed(2)}
+              </span>
             </div>
           </div>
         </div>
@@ -190,8 +216,12 @@ export function Predictions() {
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="text-sm text-white mb-1">Strong Growth Expected</p>
-                  <p className="text-sm text-gray-400">Sales projected to increase by 15% next week</p>
+                  <p className="text-sm text-white mb-1">
+                    Strong Growth Expected
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Sales projected to increase by 15% next week
+                  </p>
                 </div>
               </div>
             </div>
@@ -201,7 +231,9 @@ export function Predictions() {
                 <AlertCircle className="w-5 h-5 text-[#FF3B3B] mt-0.5" />
                 <div>
                   <p className="text-sm text-white mb-1">Stock Alert</p>
-                  <p className="text-sm text-gray-400">Consider restocking high-demand items</p>
+                  <p className="text-sm text-gray-400">
+                    Consider restocking high-demand items
+                  </p>
                 </div>
               </div>
             </div>
@@ -211,7 +243,9 @@ export function Predictions() {
                 <TrendingUp className="w-5 h-5 text-blue-500 mt-0.5" />
                 <div>
                   <p className="text-sm text-white mb-1">Seasonal Trend</p>
-                  <p className="text-sm text-gray-400">Q2 typically shows 20% higher sales</p>
+                  <p className="text-sm text-gray-400">
+                    Q2 typically shows 20% higher sales
+                  </p>
                 </div>
               </div>
             </div>

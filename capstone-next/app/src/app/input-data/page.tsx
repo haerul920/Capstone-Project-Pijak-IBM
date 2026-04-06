@@ -13,7 +13,7 @@ interface SalesDataEntry {
   notes?: string;
 }
 
-export function InputData() {
+export default function InputData() {
   const [formData, setFormData] = useState({
     productName: "",
     category: "",
@@ -35,7 +35,7 @@ export function InputData() {
       quantity: 45,
       date: "2026-03-15",
       supplier: "Tech Supplies Inc",
-      notes: "Popular item"
+      notes: "Popular item",
     },
     {
       id: "2",
@@ -46,15 +46,19 @@ export function InputData() {
       quantity: 120,
       date: "2026-03-20",
       supplier: "Global Tech",
-      notes: ""
+      notes: "",
     },
   ]);
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -73,10 +77,12 @@ export function InputData() {
     };
 
     if (editingId) {
-      setDataEntries(prev => prev.map(entry => entry.id === editingId ? newEntry : entry));
+      setDataEntries((prev) =>
+        prev.map((entry) => (entry.id === editingId ? newEntry : entry)),
+      );
       setEditingId(null);
     } else {
-      setDataEntries(prev => [...prev, newEntry]);
+      setDataEntries((prev) => [...prev, newEntry]);
     }
 
     setFormData({
@@ -106,7 +112,7 @@ export function InputData() {
   };
 
   const handleDelete = (id: string) => {
-    setDataEntries(prev => prev.filter(entry => entry.id !== id));
+    setDataEntries((prev) => prev.filter((entry) => entry.id !== id));
   };
 
   return (
@@ -236,7 +242,9 @@ export function InputData() {
 
             {/* Supplier */}
             <div>
-              <label className="block text-sm text-gray-300 mb-2">Supplier</label>
+              <label className="block text-sm text-gray-300 mb-2">
+                Supplier
+              </label>
               <input
                 type="text"
                 name="supplier"
@@ -301,24 +309,53 @@ export function InputData() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#2A2A2A]">
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Product</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Category</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Purchase</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Selling</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Quantity</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Date</th>
-                <th className="text-left py-3 px-4 text-sm text-gray-400">Actions</th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Product
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Category
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Purchase
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Selling
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Quantity
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Date
+                </th>
+                <th className="text-left py-3 px-4 text-sm text-gray-400">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {dataEntries.map((entry) => (
-                <tr key={entry.id} className="border-b border-[#2A2A2A] hover:bg-[#0B0B0B] transition-colors">
-                  <td className="py-3 px-4 text-sm text-white">{entry.productName}</td>
-                  <td className="py-3 px-4 text-sm text-gray-400">{entry.category}</td>
-                  <td className="py-3 px-4 text-sm text-gray-400">${entry.purchasePrice.toFixed(2)}</td>
-                  <td className="py-3 px-4 text-sm text-gray-400">${entry.sellingPrice.toFixed(2)}</td>
-                  <td className="py-3 px-4 text-sm text-gray-400">{entry.quantity}</td>
-                  <td className="py-3 px-4 text-sm text-gray-400">{entry.date}</td>
+                <tr
+                  key={entry.id}
+                  className="border-b border-[#2A2A2A] hover:bg-[#0B0B0B] transition-colors"
+                >
+                  <td className="py-3 px-4 text-sm text-white">
+                    {entry.productName}
+                  </td>
+                  <td className="py-3 px-4 text-sm text-gray-400">
+                    {entry.category}
+                  </td>
+                  <td className="py-3 px-4 text-sm text-gray-400">
+                    ${entry.purchasePrice.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-4 text-sm text-gray-400">
+                    ${entry.sellingPrice.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-4 text-sm text-gray-400">
+                    {entry.quantity}
+                  </td>
+                  <td className="py-3 px-4 text-sm text-gray-400">
+                    {entry.date}
+                  </td>
                   <td className="py-3 px-4">
                     <div className="flex gap-2">
                       <button

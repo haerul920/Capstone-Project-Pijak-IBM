@@ -1,6 +1,6 @@
 import { Download, FileText, FileSpreadsheet } from "lucide-react";
 
-export function Reports() {
+export default function Reports() {
   const reportTypes = [
     {
       id: "sales",
@@ -43,7 +43,9 @@ export function Reports() {
     <div className="space-y-6">
       <div>
         <h1 className="text-white mb-2">Reports</h1>
-        <p className="text-gray-400">Generate and export comprehensive reports</p>
+        <p className="text-gray-400">
+          Generate and export comprehensive reports
+        </p>
       </div>
 
       {/* Summary Insights */}
@@ -70,7 +72,9 @@ export function Reports() {
               <div className="w-12 h-12 bg-[#FF3B3B]/10 rounded-lg flex items-center justify-center">
                 <report.icon className="w-6 h-6 text-[#FF3B3B]" />
               </div>
-              <span className="text-xs text-gray-500">Last: {report.lastGenerated}</span>
+              <span className="text-xs text-gray-500">
+                Last: {report.lastGenerated}
+              </span>
             </div>
 
             <h3 className="text-white mb-2">{report.title}</h3>

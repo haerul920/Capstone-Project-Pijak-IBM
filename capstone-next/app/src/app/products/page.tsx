@@ -11,7 +11,7 @@ interface Product {
   trend: "up" | "down";
 }
 
-export function Products() {
+export default function Products() {
   const [products] = useState<Product[]>([
     {
       id: "1",
@@ -95,7 +95,10 @@ export function Products() {
   const [filterCategory, setFilterCategory] = useState("all");
 
   const sortedAndFilteredProducts = [...products]
-    .filter((product) => filterCategory === "all" || product.category === filterCategory)
+    .filter(
+      (product) =>
+        filterCategory === "all" || product.category === filterCategory,
+    )
     .sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
@@ -107,7 +110,9 @@ export function Products() {
       }
 
       if (typeof aValue === "number" && typeof bValue === "number") {
-        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
+        return sortConfig.direction === "asc"
+          ? aValue - bValue
+          : bValue - aValue;
       }
 
       return 0;
@@ -116,13 +121,18 @@ export function Products() {
   const handleSort = (key: keyof Product) => {
     setSortConfig({
       key,
-      direction: sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc",
+      direction:
+        sortConfig.key === key && sortConfig.direction === "asc"
+          ? "desc"
+          : "asc",
     });
   };
 
   const categories = Array.from(new Set(products.map((p) => p.category)));
   const totalRevenue = products.reduce((sum, p) => sum + p.revenue, 0);
-  const topProduct = products.reduce((max, p) => (p.revenue > max.revenue ? p : max));
+  const topProduct = products.reduce((max, p) =>
+    p.revenue > max.revenue ? p : max,
+  );
 
   return (
     <div className="space-y-6">
@@ -140,13 +150,17 @@ export function Products() {
 
         <div className="bg-[#1A1A1A] p-6 rounded-xl border border-[#2A2A2A]">
           <p className="text-sm text-gray-400 mb-2">Total Revenue</p>
-          <h3 className="text-3xl text-white">${totalRevenue.toLocaleString()}</h3>
+          <h3 className="text-3xl text-white">
+            ${totalRevenue.toLocaleString()}
+          </h3>
         </div>
 
         <div className="bg-[#1A1A1A] p-6 rounded-xl border border-[#2A2A2A]">
           <p className="text-sm text-gray-400 mb-2">Top Product</p>
           <h3 className="text-xl text-white">{topProduct.name}</h3>
-          <p className="text-sm text-[#FF3B3B] mt-1">${topProduct.revenue.toLocaleString()}</p>
+          <p className="text-sm text-[#FF3B3B] mt-1">
+            ${topProduct.revenue.toLocaleString()}
+          </p>
         </div>
       </div>
 
@@ -220,7 +234,9 @@ export function Products() {
                     <ArrowUpDown className="w-4 h-4" />
                   </button>
                 </th>
-                <th className="text-left py-4 px-6 text-sm text-gray-400">Trend</th>
+                <th className="text-left py-4 px-6 text-sm text-gray-400">
+                  Trend
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -241,9 +257,15 @@ export function Products() {
                       <span className="text-white">{product.name}</span>
                     </div>
                   </td>
-                  <td className="py-4 px-6 text-gray-400">{product.category}</td>
-                  <td className="py-4 px-6 text-white">${product.price.toFixed(2)}</td>
-                  <td className="py-4 px-6 text-gray-400">{product.totalSold.toLocaleString()}</td>
+                  <td className="py-4 px-6 text-gray-400">
+                    {product.category}
+                  </td>
+                  <td className="py-4 px-6 text-white">
+                    ${product.price.toFixed(2)}
+                  </td>
+                  <td className="py-4 px-6 text-gray-400">
+                    {product.totalSold.toLocaleString()}
+                  </td>
                   <td className="py-4 px-6 text-white">
                     ${product.revenue.toLocaleString()}
                   </td>

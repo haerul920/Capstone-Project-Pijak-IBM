@@ -1,6 +1,6 @@
 import { Bell, Shield, Database, User } from "lucide-react";
 
-export function Settings() {
+export default function Settings() {
   return (
     <div className="space-y-6">
       <div>
@@ -19,7 +19,9 @@ export function Settings() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Full Name</label>
+            <label className="block text-sm text-gray-400 mb-2">
+              Full Name
+            </label>
             <input
               type="text"
               defaultValue="Admin User"
@@ -53,10 +55,17 @@ export function Settings() {
             { label: "Forecast updates", checked: false },
             { label: "Weekly reports", checked: true },
           ].map((item, index) => (
-            <div key={index} className="flex items-center justify-between p-4 bg-[#0B0B0B] rounded-lg">
+            <div
+              key={index}
+              className="flex items-center justify-between p-4 bg-[#0B0B0B] rounded-lg"
+            >
               <span className="text-sm text-gray-300">{item.label}</span>
               <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" defaultChecked={item.checked} className="sr-only peer" />
+                <input
+                  type="checkbox"
+                  defaultChecked={item.checked}
+                  className="sr-only peer"
+                />
                 <div className="w-11 h-6 bg-[#2A2A2A] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FF3B3B]"></div>
               </label>
             </div>
@@ -101,7 +110,9 @@ export function Settings() {
             <span className="text-sm text-gray-300">Change password</span>
           </button>
           <button className="w-full p-4 bg-[#0B0B0B] rounded-lg hover:bg-[#2A2A2A] transition-colors text-left">
-            <span className="text-sm text-gray-300">Two-factor authentication</span>
+            <span className="text-sm text-gray-300">
+              Two-factor authentication
+            </span>
           </button>
         </div>
       </div>

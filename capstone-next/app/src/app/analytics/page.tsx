@@ -1,8 +1,19 @@
 import { useState, useMemo } from "react";
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { Calendar, Filter } from "lucide-react";
 
-export function Analytics() {
+export default function Analytics() {
   const [dateRange, setDateRange] = useState("30");
   const [selectedProduct, setSelectedProduct] = useState("all");
 
@@ -34,7 +45,9 @@ export function Analytics() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-white mb-2">Analytics</h1>
-          <p className="text-gray-400">Comprehensive sales performance analysis</p>
+          <p className="text-gray-400">
+            Comprehensive sales performance analysis
+          </p>
         </div>
 
         {/* Filters */}
@@ -78,13 +91,19 @@ export function Analytics() {
             <YAxis stroke="#666" />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1A1A1A',
-                border: '1px solid #2A2A2A',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: "#1A1A1A",
+                border: "1px solid #2A2A2A",
+                borderRadius: "8px",
+                color: "#fff",
               }}
             />
-            <Line type="monotone" dataKey="sales" stroke="#FF3B3B" strokeWidth={2} dot={{ fill: '#FF3B3B', r: 3 }} />
+            <Line
+              type="monotone"
+              dataKey="sales"
+              stroke="#FF3B3B"
+              strokeWidth={2}
+              dot={{ fill: "#FF3B3B", r: 3 }}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -99,10 +118,10 @@ export function Analytics() {
             <YAxis stroke="#666" />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1A1A1A',
-                border: '1px solid #2A2A2A',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: "#1A1A1A",
+                border: "1px solid #2A2A2A",
+                borderRadius: "8px",
+                color: "#fff",
               }}
             />
             <Legend />

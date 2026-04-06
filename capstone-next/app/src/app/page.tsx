@@ -1,11 +1,41 @@
 import { useState, useMemo } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { TrendingUp, DollarSign, Activity, Target, ArrowUp, ArrowDown, Sparkles } from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+import {
+  TrendingUp,
+  DollarSign,
+  Activity,
+  Target,
+  ArrowUp,
+  ArrowDown,
+  Sparkles,
+} from "lucide-react";
 
-export function Dashboard() {
+export default function Dashboard() {
   // Sample data for charts
   const salesData = useMemo(() => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     return months.map((month, index) => ({
       month,
       actual: 15000 + Math.random() * 10000 + index * 2000,
@@ -21,16 +51,30 @@ export function Dashboard() {
   });
 
   const [insights] = useState([
-    { type: 'increase', text: 'Sales increased by 18% in the last quarter', icon: ArrowUp },
-    { type: 'alert', text: 'Product A shows declining performance trend', icon: ArrowDown },
-    { type: 'recommendation', text: 'Optimize inventory for holiday season', icon: Sparkles },
+    {
+      type: "increase",
+      text: "Sales increased by 18% in the last quarter",
+      icon: ArrowUp,
+    },
+    {
+      type: "alert",
+      text: "Product A shows declining performance trend",
+      icon: ArrowDown,
+    },
+    {
+      type: "recommendation",
+      text: "Optimize inventory for holiday season",
+      icon: Sparkles,
+    },
   ]);
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-white mb-2">Dashboard</h1>
-        <p className="text-gray-400">AI-powered sales insights and forecasting</p>
+        <p className="text-gray-400">
+          AI-powered sales insights and forecasting
+        </p>
       </div>
 
       {/* Summary Cards */}
@@ -42,7 +86,9 @@ export function Dashboard() {
             </div>
             <span className="text-xs text-gray-500">+8.2%</span>
           </div>
-          <h3 className="text-2xl text-white mb-1">${summaryStats.totalSales.toLocaleString()}</h3>
+          <h3 className="text-2xl text-white mb-1">
+            ${summaryStats.totalSales.toLocaleString()}
+          </h3>
           <p className="text-sm text-gray-400">Total Sales</p>
         </div>
 
@@ -53,7 +99,9 @@ export function Dashboard() {
             </div>
             <span className="text-xs text-gray-500">+12.5%</span>
           </div>
-          <h3 className="text-2xl text-white mb-1">${summaryStats.revenue.toLocaleString()}</h3>
+          <h3 className="text-2xl text-white mb-1">
+            ${summaryStats.revenue.toLocaleString()}
+          </h3>
           <p className="text-sm text-gray-400">Revenue</p>
         </div>
 
@@ -62,9 +110,13 @@ export function Dashboard() {
             <div className="w-10 h-10 bg-[#FF3B3B]/10 rounded-lg flex items-center justify-center">
               <Activity className="w-5 h-5 text-[#FF3B3B]" />
             </div>
-            <span className="text-xs text-green-500">+{summaryStats.growthRate}%</span>
+            <span className="text-xs text-green-500">
+              +{summaryStats.growthRate}%
+            </span>
           </div>
-          <h3 className="text-2xl text-white mb-1">{summaryStats.growthRate}%</h3>
+          <h3 className="text-2xl text-white mb-1">
+            {summaryStats.growthRate}%
+          </h3>
           <p className="text-sm text-gray-400">Growth Rate</p>
         </div>
 
@@ -92,15 +144,28 @@ export function Dashboard() {
               <YAxis stroke="#666" />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#1A1A1A',
-                  border: '1px solid #2A2A2A',
-                  borderRadius: '8px',
-                  color: '#fff'
+                  backgroundColor: "#1A1A1A",
+                  border: "1px solid #2A2A2A",
+                  borderRadius: "8px",
+                  color: "#fff",
                 }}
               />
               <Legend />
-              <Line type="monotone" dataKey="actual" stroke="#FF3B3B" strokeWidth={2} dot={{ fill: '#FF3B3B' }} />
-              <Line type="monotone" dataKey="predicted" stroke="#666" strokeWidth={2} strokeDasharray="5 5" dot={{ fill: '#666' }} />
+              <Line
+                type="monotone"
+                dataKey="actual"
+                stroke="#FF3B3B"
+                strokeWidth={2}
+                dot={{ fill: "#FF3B3B" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="predicted"
+                stroke="#666"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#666" }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -110,18 +175,29 @@ export function Dashboard() {
           <h2 className="text-white mb-4">AI Insights</h2>
           <div className="space-y-4">
             {insights.map((insight, index) => (
-              <div key={index} className="p-4 bg-[#0B0B0B] rounded-lg border border-[#2A2A2A]">
+              <div
+                key={index}
+                className="p-4 bg-[#0B0B0B] rounded-lg border border-[#2A2A2A]"
+              >
                 <div className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                    insight.type === 'increase' ? 'bg-green-500/10' :
-                    insight.type === 'alert' ? 'bg-[#FF3B3B]/10' :
-                    'bg-blue-500/10'
-                  }`}>
-                    <insight.icon className={`w-4 h-4 ${
-                      insight.type === 'increase' ? 'text-green-500' :
-                      insight.type === 'alert' ? 'text-[#FF3B3B]' :
-                      'text-blue-500'
-                    }`} />
+                  <div
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                      insight.type === "increase"
+                        ? "bg-green-500/10"
+                        : insight.type === "alert"
+                          ? "bg-[#FF3B3B]/10"
+                          : "bg-blue-500/10"
+                    }`}
+                  >
+                    <insight.icon
+                      className={`w-4 h-4 ${
+                        insight.type === "increase"
+                          ? "text-green-500"
+                          : insight.type === "alert"
+                            ? "text-[#FF3B3B]"
+                            : "text-blue-500"
+                      }`}
+                    />
                   </div>
                   <p className="text-sm text-gray-300 flex-1">{insight.text}</p>
                 </div>
@@ -142,7 +218,10 @@ export function Dashboard() {
           <p className="text-sm text-gray-400">1,234 units sold this month</p>
           <div className="mt-4 flex items-center gap-2">
             <div className="flex-1 bg-[#0B0B0B] rounded-full h-2">
-              <div className="bg-[#FF3B3B] h-2 rounded-full" style={{ width: '85%' }}></div>
+              <div
+                className="bg-[#FF3B3B] h-2 rounded-full"
+                style={{ width: "85%" }}
+              ></div>
             </div>
             <span className="text-sm text-gray-400">85%</span>
           </div>
@@ -157,7 +236,10 @@ export function Dashboard() {
           <p className="text-sm text-gray-400">89 units sold this month</p>
           <div className="mt-4 flex items-center gap-2">
             <div className="flex-1 bg-[#0B0B0B] rounded-full h-2">
-              <div className="bg-gray-600 h-2 rounded-full" style={{ width: '15%' }}></div>
+              <div
+                className="bg-gray-600 h-2 rounded-full"
+                style={{ width: "15%" }}
+              ></div>
             </div>
             <span className="text-sm text-gray-400">15%</span>
           </div>
