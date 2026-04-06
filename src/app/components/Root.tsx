@@ -1,7 +1,4 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Outlet, NavLink } from "react-router";
 import {
   LayoutDashboard,
   Database,
@@ -12,17 +9,10 @@ import {
   Settings,
   Search,
   Bell,
-  ChevronDown,
+  ChevronDown
 } from "lucide-react";
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // usePathname menggantikan fitur isActive dari react-router
-  const pathname = usePathname();
-
+export function Root() {
   const navItems = [
     { path: "/", label: "Dashboard", icon: LayoutDashboard },
     { path: "/input-data", label: "Input Data", icon: Database },
@@ -41,23 +31,23 @@ export default function MainLayout({
           <h1 className="text-xl text-white">SalesForecast AI</h1>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   isActive
                     ? "bg-[#FF3B3B] text-white"
                     : "text-gray-400 hover:bg-[#2A2A2A] hover:text-white"
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+                }`
+              }
+            >
+              <item.icon className="w-5 h-5" />
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
         </nav>
       </aside>
 
@@ -90,9 +80,9 @@ export default function MainLayout({
           </div>
         </header>
 
-        {/* Page Content (Menggantikan <Outlet />) */}
+        {/* Page Content */}
         <main className="flex-1 overflow-auto p-6 bg-[#0B0B0B]">
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>
