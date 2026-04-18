@@ -13,3 +13,20 @@
 
   Run `npm run dev` to start the development server.
   
+
+
+  ## Backend Setup
+
+  ## Navigate to the backend folder:
+
+  Run `cd backend`
+  
+  Run the backend server:
+  
+  Run `python app.py`
+
+
+Access the Website
+
+To use the website, you need to sign up and log in first.
+  
