@@ -13,7 +13,7 @@ export default function VoucherPage() {
 
   // 🔥 LOAD USER + STATUS VOUCHER
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
+    const data = JSON.parse(localStorage.getItem("currentUser"));
     setUser(data);
 
     const usedVoucher = localStorage.getItem("voucher");
@@ -21,18 +21,22 @@ export default function VoucherPage() {
   }, []);
 
   // 🔥 HANDLE TOGGLE
-  const handleVoucher = () => {
-    if (isUsed) {
-      // ❌ CANCEL VOUCHER
-      localStorage.removeItem("voucher");
-      setIsUsed(false);
-    } else {
-      // ✅ PAKAI VOUCHER
-      localStorage.setItem("voucher", "NEW35");
-      setIsUsed(true);
-      router.push("/user/CartPage"); // optional langsung balik
-    }
-  };
+const handleVoucher = () => {
+  if (isUsed) {
+    localStorage.removeItem("voucher");
+    setIsUsed(false);
+  } else {
+    localStorage.setItem("voucher", "NEW35");
+    setIsUsed(true);
+
+    // 🔥 MATIKAN STATUS NEW USER
+    const current = JSON.parse(localStorage.getItem("currentUser"));
+    current.isNew = false;
+    localStorage.setItem("currentUser", JSON.stringify(current));
+
+    router.push("/user/CartPage");
+  }
+};
 
   if (!user) {
     return <div className="p-10">Harus login dulu</div>;
@@ -45,7 +49,7 @@ export default function VoucherPage() {
       {/* 🔥 USER BARU */}
       {user.isNew ? (
         <div className="bg-orange-100 p-5 rounded-xl">
-          <h2 className="font-semibold text-lg mb-2">
+          <h2 className="font-semibold text-lg mb-2 text-black">
             🎉 Diskon 35% untuk pengguna baru!
           </h2>
           <p className="text-gray-600 mb-4">
