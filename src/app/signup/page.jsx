@@ -66,6 +66,7 @@ users.push({
   email,
   password,
   role,
+  isNew: true, // 🔥 INI PENTING
 });
 
 localStorage.setItem("users", JSON.stringify(users));
