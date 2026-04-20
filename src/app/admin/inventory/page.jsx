@@ -581,24 +581,8 @@ useEffect(() => {
                 </div>
               </div>
 
-              <label>
-                <input
-                  type="checkbox"
-                  checked={useVariant}
-                  onChange={() => setUseVariant(!useVariant)}
-                />
-                Gunakan Variant
-              </label>
 
               <div>
-                <Select
-                  label="Color"
-                  name="color"
-                  value={form.color}
-                  onChange={handleChange}
-                  options={colors}
-                />
-
                 {/* ➕ ADD COLOR */}
                 <div className="flex gap-2 mt-2">
                   <input
@@ -613,167 +597,170 @@ useEffect(() => {
                   >
                     +
                   </button>
-                  {/* ✅ VARIANT COLOR + STOCK */}
+                </div>
+{/* ✅ VARIANT COLOR + STOCK */}
                   <div className="mt-3">
                     <label className="block mb-2 text-sm">
                       Color Variants (with stock)
                     </label>
 
-                    <div className="flex gap-2 mb-2 flex-wrap">
-                      {/* COLOR */}
-                      <select
-                        value={variantInput.color}
-                        onChange={(e) =>
-                          setVariantInput({
-                            ...variantInput,
-                            color: e.target.value,
-                          })
-                        }
-                        className="bg-[#111] border px-3 py-2 rounded-lg"
-                      >
-                        <option value="">Color</option>
-                        {colors.map((c, i) => (
-                          <option key={i}>{c}</option>
-                        ))}
-                      </select>
+    {/* 🔥 GRID FULL WIDTH */}
+    <div className="grid grid-cols-12 gap-2 mb-2">
+      {/* COLOR */}
+      <select
+        value={variantInput.color}
+        onChange={(e) =>
+          setVariantInput({
+            ...variantInput,
+            color: e.target.value,
+          })
+        }
+        className="col-span-2 bg-[#111] border px-3 py-2 rounded-lg"
+      >
+        <option value="">Color</option>
+        {colors.map((c, i) => (
+          <option key={i}>{c}</option>
+        ))}
+      </select>
 
-                      {/* STORAGE */}
-                      <select
-                        value={variantInput.storage}
-                        onChange={(e) =>
-                          setVariantInput({
-                            ...variantInput,
-                            storage: e.target.value,
-                          })
-                        }
-                        className="bg-[#111] border px-3 py-2 rounded-lg"
-                      >
-                        <option value="">Storage</option>
-                        {storageOptions.map((s, i) => (
-                          <option key={i}>{s}</option>
-                        ))}
-                      </select>
+      {/* STORAGE */}
+      <select
+        value={variantInput.storage}
+        onChange={(e) =>
+          setVariantInput({
+            ...variantInput,
+            storage: e.target.value,
+          })
+        }
+        className="col-span-2 bg-[#111] border px-3 py-2 rounded-lg"
+      >
+        <option value="">Storage</option>
+        {storageOptions.map((s, i) => (
+          <option key={i}>{s}</option>
+        ))}
+      </select>
 
-                      {/* STOCK */}
-                      <input
-                        type="number"
-                        placeholder="Stock"
-                        value={variantInput.stock}
-                        onChange={(e) =>
-                          setVariantInput({
-                            ...variantInput,
-                            stock: e.target.value,
-                          })
-                        }
-                        className="bg-[#111] border px-3 py-2 rounded-lg w-[100px]"
-                      />
-                      {/* PURCHASE */}
-                      <input
-                        type="number"
-                        placeholder="Buy"
-                        value={variantInput.purchase}
-                        onChange={(e) =>
-                          setVariantInput({
-                            ...variantInput,
-                            purchase: e.target.value,
-                          })
-                        }
-                        className="bg-[#111] border px-3 py-2 rounded-lg w-[120px]"
-                      />
+      {/* STOCK */}
+      <input
+        type="number"
+        placeholder="Stock"
+        value={variantInput.stock}
+        onChange={(e) =>
+          setVariantInput({
+            ...variantInput,
+            stock: e.target.value,
+          })
+        }
+        className="col-span-2 bg-[#111] border px-3 py-2 rounded-lg"
+      />
 
-                      {/* SELLING */}
-                      <input
-                        type="number"
-                        placeholder="Sell"
-                        value={variantInput.selling}
-                        onChange={(e) =>
-                          setVariantInput({
-                            ...variantInput,
-                            selling: e.target.value,
-                          })
-                        }
-                        className="bg-[#111] border px-3 py-2 rounded-lg w-[120px]"
-                      />
+      {/* PURCHASE */}
+      <input
+        type="number"
+        placeholder="Buy"
+        value={variantInput.purchase}
+        onChange={(e) =>
+          setVariantInput({
+            ...variantInput,
+            purchase: e.target.value,
+          })
+        }
+        className="col-span-2 bg-[#111] border px-3 py-2 rounded-lg"
+      />
 
-                      {/* ADD BUTTON */}
-                      <button
-                        onClick={() => {
-                          if (
-                            variantInput.color ||
-                            variantInput.storage ||
-                            variantInput.stock ||
-                            variantInput.purchase ||
-                            variantInput.selling
-                          ) {
-                            // kalau mulai isi → wajib lengkap
-                            if (
-                              !variantInput.color ||
-                              Number(variantInput.stock) <= 0 ||
-                              Number(variantInput.purchase) <= 0 ||
-                              Number(variantInput.selling) <= 0
-                            ) {
-                              alert("Isi data variant dengan benar!");
-                              return;
-                            }
-                          }
-                          // 🔥 CEK DUPLIKAT
-                          const exists = variants.some(
-                            (v) =>
-                              v.color === variantInput.color &&
-                              v.storage === variantInput.storage,
-                          );
+      {/* SELLING */}
+      <input
+        type="number"
+        placeholder="Sell"
+        value={variantInput.selling}
+        onChange={(e) =>
+          setVariantInput({
+            ...variantInput,
+            selling: e.target.value,
+          })
+        }
+        className="col-span-3 bg-[#111] border px-3 py-2 rounded-lg"
+      />
 
-                          if (exists) {
-                            alert("Variant sudah ada!");
-                            return;
-                          }
+      {/* ADD BUTTON */}
+      <button
+        onClick={() => {
+          if (
+            variantInput.color ||
+            variantInput.storage ||
+            variantInput.stock ||
+            variantInput.purchase ||
+            variantInput.selling
+          ) {
+            if (
+              !variantInput.color ||
+              Number(variantInput.stock) <= 0 ||
+              Number(variantInput.purchase) <= 0 ||
+              Number(variantInput.selling) <= 0
+            ) {
+              alert("Isi data variant dengan benar!");
+              return;
+            }
+          }
 
-                          setVariants([
-                            ...variants,
-                            {
-                              color: variantInput.color,
-                              storage: variantInput.storage,
-                              stock: Number(variantInput.stock),
-                              purchase: Number(variantInput.purchase),
-                              selling: Number(variantInput.selling),
-                            },
-                          ]);
+          const exists = variants.some(
+            (v) =>
+              v.color === variantInput.color &&
+              v.storage === variantInput.storage
+          );
 
-                          setVariantInput({
-                            color: "",
-                            storage: "",
-                            stock: "",
-                            purchase: "",
-                            selling: "",
-                          });
-                        }}
-                        className="bg-green-500 px-3 rounded-lg"
-                      >
-                        +
-                      </button>
-                    </div>
+          if (exists) {
+            alert("Variant sudah ada!");
+            return;
+          }
 
-                    {/* LIST VARIANT */}
-                    <div className="space-y-1 text-sm">
-                      {variants.map((v, i) => (
-                        <div key={i} className="bg-[#111] p-2 rounded">
-                          <div className="flex justify-between w-full text-xs">
-                            <span>
-                              {v.color} • {v.storage}
-                            </span>
-                            <span className="text-gray-400">{v.stock} pcs</span>
-                            <span className="text-green-400">
-                              {formatRupiah(v.purchase)}
-                            </span>
-                            <span className="text-red-400">
-                              {formatRupiah(v.selling)}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          setVariants([
+            ...variants,
+            {
+              color: variantInput.color,
+              storage: variantInput.storage,
+              stock: Number(variantInput.stock),
+              purchase: Number(variantInput.purchase),
+              selling: Number(variantInput.selling),
+            },
+          ]);
+
+          setVariantInput({
+            color: "",
+            storage: "",
+            stock: "",
+            purchase: "",
+            selling: "",
+          });
+        }}
+        className="col-span-1 bg-green-500 rounded-lg"
+      >
+        +
+      </button>
+    </div>
+
+    {/* LIST VARIANT */}
+    <div className="space-y-1 text-sm">
+      {variants.map((v, i) => (
+        <div key={i} className="bg-[#111] p-2 rounded">
+          <div className="flex justify-between w-full text-xs">
+            <span>
+              {v.color} • {v.storage}
+            </span>
+            <span className="text-gray-400">{v.stock} pcs</span>
+            <span className="text-green-400">
+              {formatRupiah(v.purchase)}
+            </span>
+            <span className="text-red-400">
+              {formatRupiah(v.selling)}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+                
               </div>
 
               {/* IMAGE */}
@@ -786,15 +773,7 @@ useEffect(() => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <Input
-                  label="Stock"
-                  name="stock"
-                  value={form.stock}
-                  onChange={handleChange}
-                  type="number"
-                />
-              </div>
+
 
               <div>
                 <label className="block mb-2 text-sm">Description</label>
@@ -806,172 +785,183 @@ useEffect(() => {
                   placeholder="Deskripsi besar untuk halaman produk..."
                 />
               </div>
-              <div>
-                <label className="block mb-2 text-sm">
-                  Features (Optional)
-                </label>
+             <div>
+  <label className="block mb-2 text-sm">
+    Features (Optional)
+  </label>
 
-                <div className="flex gap-2 flex-wrap mb-2">
-                  <input
-                    placeholder="Title"
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setFeatureInput({
-                        ...featureInput,
-                        title: e.target.value,
-                      })
-                    }
-                  />
+  {/* 🔥 GRID */}
+  <div className="grid grid-cols-12 gap-2 mb-2">
+    <input
+      placeholder="Title"
+      className="col-span-3 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setFeatureInput({
+          ...featureInput,
+          title: e.target.value,
+        })
+      }
+    />
 
-                  <input
-                    placeholder="Description"
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setFeatureInput({ ...featureInput, desc: e.target.value })
-                    }
-                  />
+    <input
+      placeholder="Description"
+      className="col-span-6 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setFeatureInput({
+          ...featureInput,
+          desc: e.target.value,
+        })
+      }
+    />
 
-                  <select
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setFeatureInput({ ...featureInput, icon: e.target.value })
-                    }
-                  >
-                    <option value="">Icon</option>
-                    <option value="cpu">CPU</option>
-                    <option value="display">Display</option>
-                    <option value="battery">Battery</option>
-                    <option value="wifi">Wifi</option>
-                  </select>
+    <select
+      className="col-span-2 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setFeatureInput({
+          ...featureInput,
+          icon: e.target.value,
+        })
+      }
+    >
+      <option value="">Icon</option>
+      <option value="cpu">CPU</option>
+      <option value="display">Display</option>
+      <option value="battery">Battery</option>
+      <option value="wifi">Wifi</option>
+    </select>
 
-                  <button
-                    onClick={() => {
-                      if (!featureInput.title) return;
+    <button
+      onClick={() => {
+        if (!featureInput.title) return;
 
-                      setForm({
-                        ...form,
-                        features: [...(form.features || []), featureInput],
-                      });
+        setForm({
+          ...form,
+          features: [...(form.features || []), featureInput],
+        });
 
-                      setFeatureInput({ title: "", desc: "", icon: "" });
-                    }}
-                    className="bg-green-500 px-3 rounded"
-                  >
-                    +
-                  </button>
-                </div>
+        setFeatureInput({ title: "", desc: "", icon: "" });
+      }}
+      className="col-span-1 bg-green-500 rounded"
+    >
+      +
+    </button>
+  </div>
 
-                <div className="space-y-1 text-sm">
-                  {form.features?.map((f, i) => (
-                    <div
-                      key={i}
-                      className="flex justify-between items-center bg-[#111] p-2 rounded"
-                    >
-                      <span>
-                        {f.title} ({f.icon || "no-icon"})
-                      </span>
+  {/* LIST */}
+  <div className="space-y-1 text-sm">
+    {form.features?.map((f, i) => (
+      <div
+        key={i}
+        className="flex justify-between items-center bg-[#111] p-2 rounded"
+      >
+        <span>
+          {f.title} ({f.icon || "no-icon"})
+        </span>
 
-                      <button
-                        onClick={() => {
-                          const updated = form.features.filter(
-                            (_, idx) => idx !== i,
-                          );
-                          setForm({ ...form, features: updated });
-                        }}
-                        className="text-red-400 hover:text-red-600"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <button
+          onClick={() => {
+            const updated = form.features.filter((_, idx) => idx !== i);
+            setForm({ ...form, features: updated });
+          }}
+          className="text-red-400 hover:text-red-600"
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
+<div>
+  <label className="block mb-2 text-sm">
+    Specifications (Optional)
+  </label>
 
-              <div>
-                <label className="block mb-2 text-sm">
-                  Specifications (Optional)
-                </label>
+  {/* 🔥 GRID */}
+  <div className="grid grid-cols-12 gap-2">
+    <input
+      placeholder="Group (Processor)"
+      className="col-span-3 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setSpecInput({ ...specInput, group: e.target.value })
+      }
+    />
 
-                <div className="flex gap-2 flex-wrap">
-                  <input
-                    placeholder="Group (Processor)"
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setSpecInput({ ...specInput, group: e.target.value })
-                    }
-                  />
-                  <input
-                    placeholder="Label (CPU)"
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setSpecInput({ ...specInput, label: e.target.value })
-                    }
-                  />
-                  <input
-                    placeholder="Value"
-                    className="bg-[#111] border px-2 py-2 rounded"
-                    onChange={(e) =>
-                      setSpecInput({ ...specInput, value: e.target.value })
-                    }
-                  />
+    <input
+      placeholder="Label (CPU)"
+      className="col-span-4 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setSpecInput({ ...specInput, label: e.target.value })
+      }
+    />
 
-                  <button
-                    onClick={() => {
-                      if (!specInput.group || !specInput.label) {
-                        alert("Group & Label wajib diisi!");
-                        return;
-                      }
+    <input
+      placeholder="Value"
+      className="col-span-4 bg-[#111] border px-3 py-2 rounded"
+      onChange={(e) =>
+        setSpecInput({ ...specInput, value: e.target.value })
+      }
+    />
 
-                      setForm({
-                        ...form,
-                        specifications: [
-                          ...(form.specifications || []),
-                          specInput,
-                        ],
-                      });
+    <button
+      onClick={() => {
+        if (!specInput.group || !specInput.label) {
+          alert("Group & Label wajib diisi!");
+          return;
+        }
 
-                      setSpecInput({ group: "", label: "", value: "" });
+        setForm({
+          ...form,
+          specifications: [
+            ...(form.specifications || []),
+            specInput,
+          ],
+        });
 
-                      setSpecSuccess(true);
-                      setTimeout(() => setSpecSuccess(false), 1500);
-                    }}
-                    className="bg-blue-500 px-3 rounded"
-                  >
-                    +
-                  </button>
-                  {specSuccess && (
-                    <p className="text-green-400 text-xs">
-                      ✔ Specification berhasil ditambahkan
-                    </p>
-                  )}
-                </div>
-                <div className="space-y-1 text-sm mt-2">
-                  {form.specifications?.map((s, i) => (
-                    <div
-                      key={i}
-                      className="flex justify-between bg-[#111] p-2 rounded"
-                    >
-                      <span>
-                        {s.group} - {s.label}: {s.value}
-                      </span>
+        setSpecInput({ group: "", label: "", value: "" });
 
-                      <button
-                        onClick={() => {
-                          const updated = form.specifications.filter(
-                            (_, idx) => idx !== i,
-                          );
-                          setForm({ ...form, specifications: updated });
-                        }}
-                        className="text-red-400 hover:text-red-600"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        setSpecSuccess(true);
+        setTimeout(() => setSpecSuccess(false), 1500);
+      }}
+      className="col-span-1 bg-blue-500 rounded"
+    >
+      +
+    </button>
+  </div>
 
-              <div className="flex justify-end gap-3 mt-4">
+  {specSuccess && (
+    <p className="text-green-400 text-xs mt-1">
+      ✔ Specification berhasil ditambahkan
+    </p>
+  )}
+
+  {/* LIST */}
+  <div className="space-y-1 text-sm mt-2">
+    {form.specifications?.map((s, i) => (
+      <div
+        key={i}
+        className="flex justify-between bg-[#111] p-2 rounded"
+      >
+        <span>
+          {s.group} - {s.label}: {s.value}
+        </span>
+
+        <button
+          onClick={() => {
+            const updated = form.specifications.filter(
+              (_, idx) => idx !== i
+            );
+            setForm({ ...form, specifications: updated });
+          }}
+          className="text-red-400 hover:text-red-600"
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
+
+<div className="flex justify-end gap-3 mt-4">
                 <button
                   onClick={() => setShowModal(false)}
                   className="bg-[#222] px-4 py-2 rounded-xl"
@@ -985,7 +975,7 @@ useEffect(() => {
                   {editIndex !== null ? "Update" : "Add Product"}
                 </button>
               </div>
-            </div>
+</div>
           </div>
         </div>
       )}
