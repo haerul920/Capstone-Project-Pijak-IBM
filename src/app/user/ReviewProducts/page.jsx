@@ -21,10 +21,7 @@ export default function ReviewProducts() {
   const [isEdit, setIsEdit] = useState(false);
   const [hasEdited, setHasEdited] = useState(false);
 
-  addNotification(
-  `Review baru untuk ${item.name}`,
-  "info"
-);
+
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("reviewItem"));
@@ -120,6 +117,11 @@ export default function ReviewProducts() {
 
     localStorage.setItem("reviews", JSON.stringify(reviews));
     window.dispatchEvent(new Event("reviewsUpdated"));
+
+      addNotification(
+      `Review baru untuk ${item.name}`,
+      "info"
+    );
 
     alert(isEdit ? "Review berhasil diupdate ✏️" : "Review berhasil ⭐");
 
