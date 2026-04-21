@@ -23,6 +23,7 @@ export default function Inventory() {
     name: "",
     category: "",
     subcategory: "",
+    brand: "",
     color: "",
     purchase: "",
     selling: "",
@@ -59,6 +60,46 @@ export default function Inventory() {
     purchase: "",
     selling: "",
   });
+
+  const [brands, setBrands] = useState({
+  electronics: {
+    mobile: ["Xiaomi", "Samsung", "Poco", "iPhone"],
+    laptop: ["Asus", "Acer", "Lenovo"],
+  },
+  skincare: {
+    serum: ["Somethinc", "Skintific"],
+  },
+});
+const [newBrand, setNewBrand] = useState("");
+
+const handleAddBrand = () => {
+  if (!newBrand || !form.category) return;
+
+  const cat = form.category.toLowerCase();
+  const sub = form.subcategory?.toLowerCase();
+
+  const updated = { ...brands };
+
+  if (!updated[cat]) updated[cat] = {};
+  if (!updated[cat][sub]) updated[cat][sub] = [];
+
+  updated[cat][sub] = [
+    ...new Set([...updated[cat][sub], newBrand]),
+  ];
+
+  setBrands(updated);
+
+  // 🔥 SIMPAN
+  localStorage.setItem("brands", JSON.stringify(updated));
+
+  setForm({ ...form, brand: newBrand });
+  setNewBrand("");
+};
+
+useEffect(() => {
+  const savedBrands = JSON.parse(localStorage.getItem("brands"));
+  if (savedBrands) setBrands(savedBrands);
+}, []);
 
   const [categories, setCategories] = useState([
     "Electronics",
@@ -580,6 +621,35 @@ useEffect(() => {
                   </button>
                 </div>
               </div>
+              <div>
+  <Select
+    label="Brand"
+    name="brand"
+    value={form.brand}
+    onChange={handleChange}
+    options={
+      brands[form.category?.toLowerCase()]?.[
+        form.subcategory?.toLowerCase()
+      ] || []
+    }
+  />
+
+  {/* ➕ ADD BRAND */}
+  <div className="flex gap-2 mt-2">
+    <input
+      value={newBrand}
+      onChange={(e) => setNewBrand(e.target.value)}
+      placeholder="Tambah brand baru"
+      className="flex-1 bg-[#111] border px-3 py-2 rounded-lg"
+    />
+    <button
+      onClick={handleAddBrand}
+      className="bg-yellow-500 px-3 rounded-lg"
+    >
+      +
+    </button>
+  </div>
+</div>
 
 
               <div>
