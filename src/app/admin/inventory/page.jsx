@@ -63,8 +63,8 @@ export default function Inventory() {
 
   const [brands, setBrands] = useState({
   electronics: {
-    mobile: ["Xiaomi", "Samsung", "Poco", "iPhone"],
-    laptop: ["Asus", "Acer", "Lenovo"],
+    mobile: ["Xiaomi", "Samsung", "Poco", "Apple", "Huawei"],
+    laptop: ["Asus", "Acer", "Lenovo", "Apple"],
   },
   skincare: {
     serum: ["Somethinc", "Skintific"],
