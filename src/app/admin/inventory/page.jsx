@@ -494,14 +494,16 @@ useEffect(() => {
 
                   <div>
                     <h3 className="font-semibold text-lg">{item.name}</h3>
+
                     <p className="text-gray-400 text-sm">
-                      {item.category} • {item.subcategory || "No Sub"} • ...
+                      {item.category} • {item.subcategory || "No Sub"} • {item.brand || "-"} •{" "}
                       {isVariant
                         ? item.variants
                             .map((v) => `${v.color} ${v.storage}`)
                             .join(", ")
                         : "No Variant"}
                     </p>
+
                     <p className="text-gray-500 text-sm">
                       Buy:{" "}
                       {minBuy === maxBuy
