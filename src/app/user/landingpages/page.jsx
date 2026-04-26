@@ -777,18 +777,17 @@ export default function LandingPage() {
 
       {/* 🔥 REVIEW SECTION */}
       <div className="w-full bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-10 ">
-          {/* HEADER */}
-          {/* HEADER */}
-          <div className="mb-12 relative">
-            {/* TITLE (BENAR-BENAR CENTER) */}
-            <h2 className="text-4xl font-bold text-gray-800 tracking-tight text-center">
+        <div className="max-w-7xl mx-auto px-10">
+          {/* HEADER SECTION */}
+          <div className="flex items-center justify-between mb-12 text-center">
+            {/* Teks - Menggunakan flex-1 agar tetap di tengah atau sesuai porsi */}
+            <h2 className="text-5xl font-black text-gray-800 tracking-tight">
               What My Clients Are Saying
             </h2>
 
-            {/* Tombol Navigasi - Hanya muncul jika review lebih dari 1 */}
+            {/* Tombol Navigasi - Berjajar di sebelah kanan judul */}
             {topReviews.length > 1 && (
-              <div className="flex gap-4">
+              <div className="flex gap-4 shrink-0">
                 <button
                   onClick={prevReview}
                   className="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition active:scale-90"
