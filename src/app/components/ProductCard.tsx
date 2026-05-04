@@ -5,6 +5,7 @@ import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { formatIDR } from './ui/utils';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
@@ -13,7 +14,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <Card className="group border-zinc-200 overflow-hidden">
       <div className="relative h-80 bg-zinc-50 overflow-hidden">
         <ImageWithFallback
-          src={product.image}
+          src={product.images?.[0] || 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400'}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -29,7 +30,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
         <h4 className="text-lg text-slate-900 mb-2">{product.name}</h4>
         <div className="flex items-center justify-between">
-          <p className="text-lg text-slate-900">${product.price}</p>
+          <p className="text-lg text-slate-900">{formatIDR(product.price)}</p>
           <Button
             onClick={() => addToCart(product)}
             disabled={!product.inStock}

@@ -1,9 +1,15 @@
-"use client";
-import { PRODUCTS } from '../../../lib/data';
 import ProductCard from '../../components/ProductCard';
+import { supabase } from '../../../lib/supabase';
 
-export default function NewArrivalsPage() {
-  const newArrivals = PRODUCTS;
+export const dynamic = 'force-dynamic';
+
+export default async function NewArrivalsPage() {
+  const { data: newArrivals } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const products = newArrivals || [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -13,7 +19,7 @@ export default function NewArrivalsPage() {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {newArrivals.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

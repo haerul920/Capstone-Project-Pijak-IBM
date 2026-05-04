@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/button';
 import { Card } from '../../components/ui/card';
 import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { formatIDR } from '../../components/ui/utils';
 
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();
@@ -32,12 +33,12 @@ export default function CartPage() {
               <Card key={`${item.id}-${index}`} className="p-6 flex items-center justify-between border-zinc-200">
                 <div className="flex items-center gap-6">
                   <div className="w-24 h-24 bg-zinc-100 rounded-sm overflow-hidden flex-shrink-0">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    <img src={item.images?.[0] || 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400'} alt={item.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h4 className="text-lg text-slate-900 mb-1">{item.name}</h4>
                     <p className="text-sm text-slate-500 mb-2">{item.category}</p>
-                    <p className="font-medium text-slate-900">${item.price}</p>
+                    <p className="font-medium text-slate-900">{formatIDR(item.price)}</p>
                   </div>
                 </div>
                 <button 
@@ -57,7 +58,7 @@ export default function CartPage() {
               <div className="space-y-4 mb-6 text-sm text-slate-600">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="text-slate-900 font-medium">${total}</span>
+                  <span className="text-slate-900 font-medium">{formatIDR(total)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Pengiriman</span>
@@ -68,7 +69,7 @@ export default function CartPage() {
               <div className="border-t border-zinc-200 pt-6 mb-8">
                 <div className="flex justify-between items-center">
                   <span className="text-base text-slate-900">Total</span>
-                  <span className="text-2xl text-slate-900 font-medium">${total}</span>
+                  <span className="text-2xl text-slate-900 font-medium">{formatIDR(total)}</span>
                 </div>
               </div>
               

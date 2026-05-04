@@ -1,6 +1,9 @@
-import { CATEGORIES, PRODUCTS } from '../../../../lib/data';
+import { CATEGORIES } from '../../../../lib/data';
 import ProductCard from '../../../components/ProductCard';
 import { notFound } from 'next/navigation';
+import { supabase } from '../../../../lib/supabase';
+
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return CATEGORIES.map((category) => ({
@@ -16,7 +19,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const categoryProducts = PRODUCTS.filter(p => p.category === category.name);
+  const { data: categoryProductsData } = await supabase
+    .from('products')
+    .select('*')
+    .eq('category', category.name)
+    .order('created_at', { ascending: false });
+
+  const categoryProducts = categoryProductsData || [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

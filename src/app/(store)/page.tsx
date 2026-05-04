@@ -1,11 +1,20 @@
-"use client";
 import Link from 'next/link';
-import { CATEGORIES, PRODUCTS } from '../../lib/data';
+import { CATEGORIES } from '../../lib/data';
 import ProductCard from '../components/ProductCard';
 import { Button } from '../components/ui/button';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { supabase } from '../../lib/supabase';
 
-export default function StorefrontHome() {
+export const dynamic = 'force-dynamic';
+
+export default async function StorefrontHome() {
+  const { data: featuredProducts } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(6);
+
+  const products = featuredProducts || [];
   return (
     <>
       {/* Hero Section */}
@@ -61,7 +70,7 @@ export default function StorefrontHome() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-12">
         <h3 className="text-2xl tracking-tight text-slate-900 mb-8">Produk Unggulan</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PRODUCTS.slice(0, 6).map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
