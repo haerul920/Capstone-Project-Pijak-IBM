@@ -4,7 +4,9 @@ export interface Product {
   price: number;
   category: string;
   images: string[];
-  inStock: boolean;
+  inStock?: boolean;
+  in_stock?: boolean;
+  stock?: number;
 }
 
 export const PRODUCTS: Product[] = [

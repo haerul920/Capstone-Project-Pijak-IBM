@@ -4,6 +4,7 @@ import ProductCard from '../components/ProductCard';
 import { Button } from '../components/ui/button';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { supabase } from '../../lib/supabase';
+import StoreReviews from '../components/StoreReviews';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,9 +34,9 @@ export default async function StorefrontHome() {
               <p className="text-lg text-white/90 mb-8">
                 Keanggunan abadi berpadu dengan minimalisme kontemporer
               </p>
-              <Link href="/new-arrivals">
+              <Link href="/featured">
                 <Button className="bg-white text-slate-900 hover:bg-white/90 px-8">
-                  Jelajahi Koleksi
+                  Jelajahi Unggulan
                 </Button>
               </Link>
             </div>
@@ -67,12 +68,20 @@ export default async function StorefrontHome() {
       </section>
 
       {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h3 className="text-2xl tracking-tight text-slate-900 mb-8">Produk Unggulan</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+      </section>
+
+      {/* Store Reviews */}
+      <section className="bg-zinc-50 py-16 mt-12 border-t border-zinc-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-2xl tracking-tight text-slate-900 mb-8 text-center">Ulasan Pelanggan</h3>
+          <StoreReviews />
         </div>
       </section>
     </>

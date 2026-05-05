@@ -5,11 +5,56 @@ import { Card } from '../../components/ui/card';
 import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { formatIDR } from '../../components/ui/utils';
+import { supabase } from '../../../lib/supabase';
+import { useUser } from '@clerk/nextjs';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
+  const { user } = useUser();
+  const router = useRouter();
+  const [isOrdering, setIsOrdering] = useState(false);
   
   const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  const handleOrder = async () => {
+    if (!user) {
+      toast.error('Akses Ditolak', { description: 'Anda harus masuk (login) terlebih dahulu untuk membuat pesanan.' });
+      router.push('/sign-in');
+      return;
+    }
+
+    setIsOrdering(true);
+    
+    const orderData = {
+      user_id: user?.id || 'anonymous',
+      total_amount: total,
+      items: cart,
+      status: 'pending'
+    };
+
+    const { error } = await supabase.from('orders').insert([orderData]);
+    
+    if (error) {
+      toast.error('Gagal membuat pesanan', { description: error.message });
+    } else {
+      // Decrement stock for each item
+      for (const item of cart) {
+        if (item.id) {
+          const { data: pData } = await supabase.from('products').select('stock').eq('id', item.id).single();
+          if (pData && pData.stock > 0) {
+            await supabase.from('products').update({ stock: pData.stock - 1 }).eq('id', item.id);
+          }
+        }
+      }
+      toast.success('Pesanan berhasil dibuat!', { description: 'Stok barang telah disesuaikan.' });
+      clearCart();
+    }
+    
+    setIsOrdering(false);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -73,8 +118,12 @@ export default function CartPage() {
                 </div>
               </div>
               
-              <Button className="w-full bg-slate-900 hover:bg-slate-800 text-lg py-6">
-                Lanjut ke Pembayaran
+              <Button 
+                onClick={handleOrder}
+                disabled={isOrdering || cart.length === 0}
+                className="w-full bg-slate-900 hover:bg-slate-800 text-lg py-6"
+              >
+                {isOrdering ? 'Memproses...' : 'Pesan Sekarang (Mock)'}
               </Button>
             </div>
           </div>

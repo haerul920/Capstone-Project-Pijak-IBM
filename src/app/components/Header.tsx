@@ -19,7 +19,7 @@ export default function Header() {
               <h1 className="text-2xl tracking-tight text-slate-900">LUMINA</h1>
             </Link>
             <div className="hidden lg:flex gap-6">
-              <Link href="/new-arrivals" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Kedatangan Baru</Link>
+              <Link href="/featured" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Unggulan</Link>
               <Link href="/category/pria" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Pria</Link>
               <Link href="/category/wanita" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Wanita</Link>
               <Link href="/category/aksesoris" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Aksesoris</Link>

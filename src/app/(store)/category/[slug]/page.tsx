@@ -19,11 +19,17 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const { data: categoryProductsData } = await supabase
+  let query = supabase
     .from('products')
-    .select('*')
-    .eq('category', category.name)
-    .order('created_at', { ascending: false });
+    .select('*');
+
+  if (category.name === 'Pakaian Pria' || category.name === 'Pakaian Wanita') {
+    query = query.in('category', [category.name, 'Unisex']);
+  } else {
+    query = query.eq('category', category.name);
+  }
+
+  const { data: categoryProductsData } = await query.order('created_at', { ascending: false });
 
   const categoryProducts = categoryProductsData || [];
 

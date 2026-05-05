@@ -16,9 +16,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
-    if (!product.inStock) {
+    if (product.stock !== undefined && product.stock <= 0) {
+      toast.error('Stok Habis', {
+        description: 'Maaf, stok barang ini sedang kosong.',
+      });
+      return;
+    } else if (product.in_stock === false || product.inStock === false) {
       toast.error('Barang Habis', {
-        description: 'Barang ini sedang tidak tersedia. Kami akan memberitahu Anda ketika barang kembali tersedia.',
+        description: 'Barang ini sedang tidak tersedia.',
       });
       return;
     }

@@ -9,6 +9,8 @@ import { formatIDR } from './ui/utils';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
+  
+  const hasStock = product.stock !== undefined ? product.stock > 0 : (product.in_stock ?? product.inStock ?? false);
 
   return (
     <Card className="group border-zinc-200 overflow-hidden">
@@ -18,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {!product.inStock && (
+        {!hasStock && (
           <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
             <Badge variant="secondary" className="text-xs">Habis Terjual</Badge>
           </div>
@@ -33,11 +35,11 @@ export default function ProductCard({ product }: { product: Product }) {
           <p className="text-lg text-slate-900">{formatIDR(product.price)}</p>
           <Button
             onClick={() => addToCart(product)}
-            disabled={!product.inStock}
-            variant={product.inStock ? 'default' : 'secondary'}
-            className={product.inStock ? 'bg-slate-900 hover:bg-slate-800' : ''}
+            disabled={!hasStock}
+            variant={hasStock ? 'default' : 'secondary'}
+            className={hasStock ? 'bg-slate-900 hover:bg-slate-800' : ''}
           >
-            {product.inStock ? 'Tambah ke Keranjang' : 'Tidak Tersedia'}
+            {hasStock ? 'Tambah ke Keranjang' : 'Tidak Tersedia'}
           </Button>
         </div>
       </div>
