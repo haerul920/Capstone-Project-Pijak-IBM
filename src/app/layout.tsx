@@ -30,7 +30,9 @@ export default function RootLayout({
       }}
     >
       <html lang="id">
-        <body>{children}</body>
+        <body>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );

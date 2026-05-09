@@ -4,11 +4,13 @@ import { Button } from '../../components/ui/button';
 import { MapPin, Package, LogOut, User, Star } from 'lucide-react';
 import { useClerk, useUser } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '../../../lib/supabase';
 import { formatIDR } from '../../components/ui/utils';
 import { toast } from 'sonner';
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { signOut } = useClerk();
   const { user, isLoaded } = useUser();
   const [activeTab, setActiveTab] = useState('account');
@@ -22,6 +24,12 @@ export default function ProfilePage() {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push('/sign-in?redirect_url=/profile');
+    }
+  }, [isLoaded, user, router]);
 
   useEffect(() => {
     if (isLoaded && user) {

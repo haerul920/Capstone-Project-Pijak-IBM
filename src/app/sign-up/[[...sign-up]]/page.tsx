@@ -1,9 +1,10 @@
 import { SignUp } from "@clerk/nextjs";
+import AuthLayout from "../../components/AuthLayout";
 
 export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 py-12 px-4 sm:px-6 lg:px-8">
-      <SignUp />
-    </div>
+    <AuthLayout>
+      <SignUp forceRedirectUrl="/sign-out-redirect" />
+    </AuthLayout>
   );
 }
