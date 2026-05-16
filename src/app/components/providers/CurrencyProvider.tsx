@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useExchangeRateStore } from "@/store/exchangeRateStore";
+import { useExchangeRateStore } from "../../../store/exchangeRateStore";
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const fetchRate = useExchangeRateStore((state) => state.fetchRate);
