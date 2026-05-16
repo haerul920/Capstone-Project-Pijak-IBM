@@ -1,0 +1,16 @@
+node_modules
+/.pnp
+.pnp.js
+
+/.next/
+/out/
+
+/build
+
+.env*.local
+.env
+
+.vercel
+
+.clerk
+*.tsbuildinfo
