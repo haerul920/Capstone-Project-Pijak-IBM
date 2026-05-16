@@ -1,7 +1,7 @@
 "use client";
 
 import { useSettingsStore } from "@/store/settingsStore";
-import { useExchangeRateStore } from "@/store/exchangeRateStore";
+import { useExchangeRateStore } from "../store/exchangeRateStore";
 import { useEffect, useMemo } from "react";
 
 export function useFormatCurrency() {
